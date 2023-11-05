@@ -8,7 +8,7 @@ Archil Elizbarashvili
 2.	cd../../../usr/share/common-licenses/ 
 	cd /usr/share/common-licenses
 3. Suppose you are standing in some directory. Go to your home directory using  both, absolute and relative path. 
-3. 		cd  ~
+3. 	cd  ~
 	cd /home/$user
 	cd $HOME
 4. Create files with the following names: "name", "name surname", "name \ surname", "'name" surname' "," '".", "' / \" 
@@ -25,19 +25,19 @@ touch "' / \\"
 6.	touch {A,B,C}{A,B,C}{A,B,C}{A,B,C}
 		touch {A..C}{A..C}{A..C}{A..C}
 7. In the directory “test”, create all possible three-character with \, $, @ and ' symbols. 
-7.		mkdir -p test && touch test/{\\,\$,@,\'}{\\,\$,@,\'}{\\,\$,@,\'}
-		mkdir -p test && cd test && touch {\\,\$,@,\'}{\\,\$,@,\'}{\\,\$,@,\'}
+7.	mkdir -p test && touch test/{\\,\$,@,\'}{\\,\$,@,\'}{\\,\$,@,\'}
+	mkdir -p test && cd test && touch {\\,\$,@,\'}{\\,\$,@,\'}{\\,\$,@,\'}
 8. Create 10000 html extension files in the HTML directory. Do the operation in  the Shell with one command!
-8.		mkdir HTML && cd HTML && touch {1..10000}.html
+8.	mkdir HTML && cd HTML && touch {1..10000}.html
 9. Create filenames "name1", "name2" and "name3" with and without the  "txt" file extension. Do the operation in the Shell with one command! 
-9.		touch name{1..3}{,.txt}
+9.	touch name{1..3}{,.txt}
 •	{,.txt} represents a brace expansion that expands to an empty string and ".txt". This adds the option to create files without the ".txt" extension and with the ".txt" extension.
 10. Create filenames "name1", "name2" and "name3" with the "txt" file  extension. The file extension should be given in all character case variants - uppercase, lowercase and mixed: txt, txT,… TXT. Do the operation in the  Shell with one command! 
-10.		touch name{1..3}.{t,T}{x,X}{t,T}
+10.	touch name{1..3}.{t,T}{x,X}{t,T}
 11. Create three-character directory names where the first character is from a to z,  the second one is from A to Z, and the third one is a digit. Do the operation in  the Shell with one command! 
-11.		mkdir {a..z}{A..Z}{0..9}
+11.	mkdir {a..z}{A..Z}{0..9}
 12. Create directories of all possible two-character names with the hexadecimal  characters. Do the operation in the Shell with one command! 
-12.		mkdir -p {{0..9},{A..F}}{{0..9},{A..F}}
+12.	mkdir -p {{0..9},{A..F}}{{0..9},{A..F}}
 13. Create all possible three-character directory name variants with digits. In each  directory create one-character, two-character, three-character and four character filenames using the following symbols: A, B and C. Do the operation  in the Shell with one command! 
 Then display the following files:  
 A) 01234 ̅̅̅̅̅̅̅̅̅∀56789 ̅̅̅̅̅̅̅̅̅/∀CB̅̅̅̅ 
@@ -50,15 +50,17 @@ mkdir {000..999} && touch {000..999}/{A..C}{,{A..C}}{,{A..C}{A..C}}
 B) find . -type d -name '[^5][^5][^5]' -exec find {} -type f -name '??' \;
 	C)find {1,3,9}{1,3,9}{1,3,9}/ -type f -name '?' -o -name '???' | grep -E '^[^B]+$'
 14. Suppose you have a lot of image files with jpg, bmp and png extensions in  the "Photos/" directory. Select the jpg and png files containing at least one  digit in the filename and whose first letter is between D to P. Do the operation  in the Shell with one command! 
-14.		ls Photos/{D..P}*{[0-9]*,*}.{jpg,png} 
+14.	ls Photos/{D..P}*{[0-9]*,*}.{jpg,png} 
 		ls [D-P]*[1-9]*.{jpg,png}
-		find Photos/{D..P}*{[0-9]*,*}.{jpg,png} -type f
+	find Photos/{D..P}*{[0-9]*,*}.{jpg,png} -type f
+	find ./Photos -type f \( -name '[D-P]*[0-9]*.jpg' -o -name '[D-P]*[0-9]*.png' \)
 15. Suppose you have a lot of image files with jpg, bmp and png extensions in  the "Photos/" directory. Select the jpg and png files (file extension can be  given in uppercase, lowercase, or mixed cases) containing at least one digit in  the filename and whose first letter is between D to P. Do the operation in the  Shell with one command! 
-15.		find Photos/ -type f -iname "[D-P]*[0-9]*.[jp][pn]g"
-		ls Photos/"[D-P]*[0-9]*.{[jJ][pP][gG],[pP][nN][gG]}”
-		find Photos/ -type f -iname "[D-P]*[0-9]*.[jpPnN][pnNPgG]"
-		ls Photos/[D-P]*[0-9]*.{[jJ][pP][gG],[pP][nN][gG]}
-		ls [D-P]*[1-9]*.{{J,j}{p,P}{g,G},{p,P}{n,N}{g,G}}
+15.	find Photos/ -type f -iname "[D-P]*[0-9]*.[jp][pn]g"
+	ls Photos/"[D-P]*[0-9]*.{[jJ][pP][gG],[pP][nN][gG]}”
+	find Photos/ -type f -iname "[D-P]*[0-9]*.[jpPnN][pnNPgG]"
+	ls Photos/[D-P]*[0-9]*.{[jJ][pP][gG],[pP][nN][gG]}
+	ls [D-P]*[1-9]*.{{J,j}{p,P}{g,G},{p,P}{n,N}{g,G}}
+	find ./Photos -type f \( -iname '[d-p]*[0-9]*.jpg' -o -iname '[d-p]*[0-9]*.png' \)
 
 16. Suppose you have a lot of video files with flv, vob and ogg extensions in  the "Videos/" directory. Select the flv and ogg files (file extension can be  given in uppercase, lowercase, or mixed cases) containing at least one digit in 
 the filename and whose last letter is between K to Q. Do the operation in the  Shell with one command! 
@@ -66,6 +68,7 @@ the filename and whose last letter is between K to Q. Do the operation in the  S
 16.	ls Videos/*[0-9]*{K..Q}.{[fF][lL][vV],[oO][gG][gG]}
 
 find Videos/ -type f \( -iname "*[0-9]*[K-Q].flv" -o -iname "*[0-9]*[K-Q].ogg" \)
+find ./Videos -type f \( -iname '*[k-q][0-9]*.flv' -o -iname '*[k-q][0-9]*.ogg' \)
 17. Suppose you have a lot of documents with pdf and txt extensions in the  "Documents/" directory. Select the seven-character (excluding the  extension) .pdf files and the .txt files containing at least 2 digits and whose  first letter is between C to R. Do the operation in the Shell with one  command! 
 17.		find Documents/ -type f ( -name "[C-R]*[0-9]*[0-9]*.txt" -o -name "[C-Rc-r][0-9]*[0-9]*.pdf" )
 18. Describe graphically the following tree structure: /usr/{local/{bin,lib},lib/{gimp/?.?*,emacs/[0-9]*.[1- 9]}}Describe graphically the following tree structure:  /usr/{share/{common-licenses/{,L}GPL- 
@@ -124,63 +127,64 @@ cat bar/foo | xargs echo | xargs du -sh
 24. Create a filename toto if the filename foobar exists, otherwise create a  filename titi. Do not display an error message on the screen. 
 24.		test -e "foobar" && touch "toto" || touch "titi" 2>/dev/null
 25. Run the "ls -l" command on one terminal and display the output on the  other one. 
-25.		mkfifo mypipe (First Terminal)
-ls -l | tee mypipe (First Terminal)
-cat < mypipe (Second Terminal)
-This is the FIFO method.
+25.	mkfifo mypipe (First Terminal)
+	ls -l | tee mypipe (First Terminal)
+	cat < mypipe (Second Terminal)
+	This is the FIFO method.
 
-ls -l > /dev/pts/1
+	ls -l > /dev/pts/1
 26. Run a file content viewer command on one terminal and display the output  on the other one. 
-26.		mkfifo mypipe2 (First Terminal)
-cat foo | tee mypipe2 (First Terminal)
-cat < mypipe2 (Second Terminal)
-cat foo > /dev/pts/1
-(Launch PS command to figure out the tty code)
-This is the FIFO method.
+26.	mkfifo mypipe2 (First Terminal)
+	cat foo | tee mypipe2 (First Terminal)
+	cat < mypipe2 (Second Terminal)
+	cat foo > /dev/pts/1
+	(Launch PS command to figure out the tty code)
+	This is the FIFO method.
 
 27. Copy the toto file content to the titi file. Do not display an error message  on the screen if toto doesn’t exist.
-27.		cat toto >> titi 2>/dev/null
-		cp toto titi 2>/dev/null
+27.	cat toto >> titi 2>/dev/null
+	cp toto titi 2>/dev/null
 
 28. Append the list of .conf files from the /etc directory to the  list_conf.txt file of your home directory. 
-28.		find /etc -type f -iname "*.conf" >> ~/list_conf.txt
-		find /etc -type f -iname "*.conf" >> $HOME/list_conf.txt
+28.	find /etc -type f -iname "*.conf" >> ~/list_conf.txt
+	find /etc -type f -iname "*.conf" >> $HOME/list_conf.txt
 29. Append the list of .conf files from the /etc directory to the  list_conf.txt file of your home directory and display the list on the  screen as well. Do the operation in the Shell with one command! 
-29.		find /etc -type f -name "*.conf" | tee -a ~/list_conf.txt
+29.	find /etc -type f -name "*.conf" | tee -a ~/list_conf.txt
 30. Append the list .txt files of your HOME directory to the /tmp/list.txt file and display the list on the screen as well. Do the operation in the Shell  with one command! 
-30.		find ~/ -maxdepth 1 -type f -iname “*.txt” | tee -a /tmp/list.txt
-		find $HOME/ -maxdepth 1 -type f -iname “*.txt” | tee -a /tmp/list.txt
+30.	find ~/ -maxdepth 1 -type f -iname “*.txt” | tee -a /tmp/list.txt
+	find $HOME/ -maxdepth 1 -type f -iname “*.txt” | tee -a /tmp/list.txt
+	find $HOME -maxdepth 1 -type f -name "*.txt" | tee -a /tmp/list.txt
 31. Redirect the list of all files of /etc directory to the list_etc.txt file and  list of .conf files of /etc directory to the list_etc_conf.txt file. Do  the operation in the Shell with one command! 
-31.		ls /etc > list_etc.txt && ls /etc/*.conf > list_etc_conf.txt
+31.	ls /etc > list_etc.txt && ls /etc/*.conf > list_etc_conf.txt
 32. Suppose you have 3 files: n1.txt, n2.txt, n3.txt each containing a  random number on one line. Calculate the following arithmetic expressions (n1+(n2*n3))/n2 where n1, n2 and n3 are the file contents. 
-32.		result=$(($(cat n1.txt) + ($(cat n2.txt) * $(cat n3.txt)))) && echo "scale=2; $result / $(cat n2.txt)" | bc
+32.	result=$(($(cat n1.txt) + ($(cat n2.txt) * $(cat n3.txt)))) && echo "scale=2; $result / $(cat n2.txt)" | bc
 33. Calculate the π value with the first 100 decimals. 
-33.		echo "scale=100; 4*a(1)" | bc -l
+33.	echo "scale=100; 4*a(1)" | bc -l
 34. Create the variable named File and assign the value of an arithmetic  expression (for example: 12+3-5). Create a file with the same name as the  value of the arithmetic expression (10, 10=12+3-5). Do the operation in  the Shell with one command! 
-34.		File=$((12+3-5)) && touch $File
+34.	File=$((12+3-5)) && touch $File
 35. Create the variable named File and assign the value of an arithmetic  expression (for example: 12+3-5). Edit a file with the same name as the value  of the arithmetic expression (10, 10=12+3-5). After inserting some  content into the file copy it to the new filename with the same name  expression plus 1 (e.g. 11=10+1). Do the operation in the Shell with one  command! 
-35.		File=$((12+3-5)) && echo "I am awesome" > $File && cp $File $((File+1))
+35.	File=$((12+3-5)) && echo "I am awesome" > $File && cp $File $((File+1))
 36. Color the shell invitation. 
-36.		PS1="\[\033[38;5;208m\]\u@\h:\w\$\[\033[0m\] "
+36.	PS1="\[\033[38;5;208m\]\u@\h:\w\$\[\033[0m\] "
 37. Change Shell invitation to: "I'm in… (current directory name),  Now it is… (current time), this is… (command number)  the command" 
-37.		PS1='I'"'"'m in \w, Now it is \A, this is \# the command: '
-		PS1='I'"'"'m in $(pwd), Now it is $(date "+%H:%M"), this is \# the command: '
+37.	PS1='I'"'"'m in \w, Now it is \A, this is \# the command: '
+	PS1='I'"'"'m in $(pwd), Now it is $(date "+%H:%M"), this is \# the command: '
 38. Create the following type of colored shell invitation. «My processes  number is - N $». 
-38.		PS1="My processes number is - \# \$ "
+38.	PS1="My processes number is - \# \$ "
 39. Which of the following statements best describes what happens in the output  of the “$ cat <ls> cat” command?
 A) Redirect the "ls" file content to the standard output of the "cat"  command 
 B) Concatenates the "<ls>" and the "cat" files on the screen 
-C) Overwrites the "cat" file with the content of the "ls" file 
+--C) Overwrites the "cat" file with the content of the "ls" file 
 D) Incorrect command 
 E) Transfers the "ls" command output to the "cat" file 
 40. Which of the following statements best describes what happens in the output  of the ”$ cat <cat> ls” command? 
 A) Redirects the "ls" file content to the standard input of the "cat"  command  
 B) Concatenates the "<cat>" and the "ls" files on the screen 
-C) Overwrites the "ls" file with the content of the "cat" file 
+--C) Overwrites the "ls" file with the content of the "cat" file 
 D) Incorrect command 
 E) Redirect the "cat" command output to the "ls" file 
 41. Which of the following statements best describes what happens in the output  of the “$ wc file.txt | tee wc” command? 
-A) Prints the newline, word and byte counts for the file.txt and  copies them to the filename ”wc” 
+--A) Prints the newline, word and byte counts for the file.txt and  copies them to the filename ”wc” 
 B) Opens the ”file.txt” and the “wc” files in the text editor named “wc” 
 C) Prints the new line, word and byte counts for the file.txt and opens  the file “tee” with the command “wc” 
 D) Incorrect command 
@@ -255,8 +259,8 @@ function cat() {
 source ~/.bashrc
 		
 		cd linux-training 
-cp /bin/cp ./ps
-cp /bin/mv ./cat
+cp /bin/cat ./ps
+cp /bin/ps ./cat
 PATH=$PWD:$PATH
 
 49. Remove all files and directories except those name start with “r” in the  directory $HOME/tmp 
@@ -397,22 +401,22 @@ bg
 90.	date -d "$(date -d '+2 years 5 months 6 days' +'%Y-%m-%d')" "+%A"
 91. Display the day of the week which will be in 2 years, 5 months and 6 days  ago. 
 
-91.		date -d "$(date -d '-2 years 5 months 6 days' +'%Y-%m-%d')" "+%A"
+91.	date -d "$(date -d '-2 years 5 months 6 days' +'%Y-%m-%d')" "+%A"
 92. Display the day of the week, which will be 2 years, 5 months ago and 6 days  after.
-92.		date -d "$(date -d '+2 years 5 months 6 days' +'%Y-%m-%d')" "+%A"
+92.	date -d "$(date -d '+2 years 5 months 6 days' +'%Y-%m-%d')" "+%A"
 93. Display the number of seconds that have elapsed since the creation of UNIX.
 93.	echo $(($(date +%s) - $(date -d '1970-01-01 00:00:00' +%s)))
 94. Display 5-10 lines of 2-5 columns of the file toto and redirect the output to the following filename: toto_YYMMDDHHMM (where, YYMMDDHHMM is the current year, month, day, hour and minute)
 94.	cut -f 2-5 toto | sed -n '5,10p' > "toto_$(date +'%y%m%d%H%M')"
 95. Print the 3-5 columns of the toto file, where the columns are separated by  symbol “:”. 
-95.		awk -F: '{print $3, $4, $5}' toto
-		cat toto | cut -d : -f 3-5
+95.	awk -F: '{print $3, $4, $5}' toto
+	cat toto | cut -d : -f 3-5
 96. Find the duplicate lines in the toto file and display the count. 
 96.	uniq -c -d file.txt
 	sort toto | uniq -d | wc -l
 97. Remove all regular type files in the $HOME/tmp directory those name start  with a, m and r. 
-97.		find $HOME/tmp/ -type f \( -name "a*" -o -name "m*" -o -name "r*" \) -exec rm -f {} \;
-		find $HOME/tmp/ -type f -name “[amf]*” | xargs rm -f 
+97.	find $HOME/tmp/ -type f \( -name "a*" -o -name "m*" -o -name "r*" \) -exec rm -f {} \;
+	find $HOME/tmp/ -type f -name “[amf]*” | xargs rm -f 
 98. Count files in your home directory. 
 98	find $HOME -type f | wc -l
 99. Suppose you have 4 files: surname.txt (contains student’s last names per  line), name.txt (contains students' names per line), brdate.txt (contains 
@@ -439,8 +443,8 @@ student’s birthdays per line), place.txt (contains students' birth places per 
 107.	tar -cjvf archive_$(date +%y%m%d).tbz2 $HOME/* 
 108.Create the archive file archive_YYMMDD.tar that contains all the files  from the $HOME/Documents directory. Later, in 5 hours and 15 minutes, add the $HOME/tmp directory to the archive.
 108.	tar -cvf archive_$(date +%y%m%d).tar $HOME/Documents/*
-		echo "tar -rvf archive_$(date +%y%m%d).tar $HOME/tmp/*" | at now + 5 hours 15 minutes 
-		sleep 5h 15m && tar --append -f archive_$(date +\%Y\%m\%d).tar -C $HOME/tmp .
+	echo "tar -rvf archive_$(date +%y%m%d).tar $HOME/tmp/*" | at now + 5 hours 15 minutes 
+	sleep 5h 15m && tar --append -f archive_$(date +\%Y\%m\%d).tar -C $HOME/tmp .
 109.Create the archive archive.tar, which will include all the files from your  home directory. The next day, at 21:00, delete the directory $HOME/tmp from the archive and compress the archive with the Lempel-Ziv algorithm. 
 109.		tar -cvf archive.tar $HOME/*
 echo "tar --delete -f archive.tar $HOME/tmp && gzip archive.tar" | at 21:00 tomorrow
@@ -494,11 +498,11 @@ ls -l -d $HOME/.?* | wc -l
 
 128.Display your home directory size (in bytes).
 128.	du -sb ~
-		du -sb $HOME
+	du -sb $HOME
 
 129.Display the disk free information (in bytes).
 129.	df --block-size=1
 
 130.Copy all your script files ($HOME/bin/*) to the USB key (/media/usb)  preserving the following attributes: mode, ownership, timestamps.
 130.	cp -rp $HOME/bin/*.sh /media/usb/
-		cp -rp $HOME/bin/* /media/usb/
+	cp -rp $HOME/bin/* /media/usb/
