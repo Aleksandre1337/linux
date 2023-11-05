@@ -1,0 +1,504 @@
+Introduction to GNU/Linux systems 
+Exercises 
+Archil Elizbarashvili 
+1. Let's say you are standing in the /home/user/Documents directory. Go to  the /usr/share/common-licenses directory. Use both, the absolute  and the relative path. 
+1.	cd../../usr/share/common-licenses/ 
+	cd /usr/share/common-licenses
+2. Suppose you are standing in the /usr/local/bin directory. Go to the  /usr/share/common-licenses directory. Use both, the absolute and  the relative path. 
+2.	cd../../../usr/share/common-licenses/ 
+	cd /usr/share/common-licenses
+3. Suppose you are standing in some directory. Go to your home directory using  both, absolute and relative path. 
+3. 		cd  ~
+	cd /home/$user
+	cd $HOME
+4. Create files with the following names: "name", "name surname", "name \ surname", "'name" surname' "," '".", "' / \" 
+4.	    touch name
+touch "name surname"
+touch "name \ surname"
+touch "'name\" surname'"
+touch "'"
+touch "' / \\"
+
+5. Create all possible two-character filenames with A and B symbols. 
+5.	touch {A,B}{A,B}
+6. Create all possible four-character filenames with A, B and C symbols. 
+6.	touch {A,B,C}{A,B,C}{A,B,C}{A,B,C}
+		touch {A..C}{A..C}{A..C}{A..C}
+7. In the directory “test”, create all possible three-character with \, $, @ and ' symbols. 
+7.		mkdir -p test && touch test/{\\,\$,@,\'}{\\,\$,@,\'}{\\,\$,@,\'}
+		mkdir -p test && cd test && touch {\\,\$,@,\'}{\\,\$,@,\'}{\\,\$,@,\'}
+8. Create 10000 html extension files in the HTML directory. Do the operation in  the Shell with one command!
+8.		mkdir HTML && cd HTML && touch {1..10000}.html
+9. Create filenames "name1", "name2" and "name3" with and without the  "txt" file extension. Do the operation in the Shell with one command! 
+9.		touch name{1..3}{,.txt}
+•	{,.txt} represents a brace expansion that expands to an empty string and ".txt". This adds the option to create files without the ".txt" extension and with the ".txt" extension.
+10. Create filenames "name1", "name2" and "name3" with the "txt" file  extension. The file extension should be given in all character case variants - uppercase, lowercase and mixed: txt, txT,… TXT. Do the operation in the  Shell with one command! 
+10.		touch name{1..3}.{t,T}{x,X}{t,T}
+11. Create three-character directory names where the first character is from a to z,  the second one is from A to Z, and the third one is a digit. Do the operation in  the Shell with one command! 
+11.		mkdir {a..z}{A..Z}{0..9}
+12. Create directories of all possible two-character names with the hexadecimal  characters. Do the operation in the Shell with one command! 
+12.		mkdir -p {{0..9},{A..F}}{{0..9},{A..F}}
+13. Create all possible three-character directory name variants with digits. In each  directory create one-character, two-character, three-character and four character filenames using the following symbols: A, B and C. Do the operation  in the Shell with one command! 
+Then display the following files:  
+A) 01234 ̅̅̅̅̅̅̅̅̅∀56789 ̅̅̅̅̅̅̅̅̅/∀CB̅̅̅̅ 
+B) All two-character filename located in directories whose name does not  include the symbol "5" 
+C) All one and three-character filenames not containing "B" and located in  the directory name including the only symbols "1", "3" and "9" 
+13.	mkdir -p {0..9}{0..9}{0..9} && for dir in {0..9}{0..9}{0..9}; do (cd "$dir" && touch {A,B,C} {A,B,C}{A,B,C} {A,B,C}{A,B,C}{A,B,C} {A,B,C}{A,B,C}{A,B,C}{A,B,C}); done
+	
+mkdir {000..999} && touch {000..999}/{A..C}{,{A..C}}{,{A..C}{A..C}}
+		
+B) find . -type d -name '[^5][^5][^5]' -exec find {} -type f -name '??' \;
+	C)find {1,3,9}{1,3,9}{1,3,9}/ -type f -name '?' -o -name '???' | grep -E '^[^B]+$'
+14. Suppose you have a lot of image files with jpg, bmp and png extensions in  the "Photos/" directory. Select the jpg and png files containing at least one  digit in the filename and whose first letter is between D to P. Do the operation  in the Shell with one command! 
+14.		ls Photos/{D..P}*{[0-9]*,*}.{jpg,png} 
+		ls [D-P]*[1-9]*.{jpg,png}
+		find Photos/{D..P}*{[0-9]*,*}.{jpg,png} -type f
+15. Suppose you have a lot of image files with jpg, bmp and png extensions in  the "Photos/" directory. Select the jpg and png files (file extension can be  given in uppercase, lowercase, or mixed cases) containing at least one digit in  the filename and whose first letter is between D to P. Do the operation in the  Shell with one command! 
+15.		find Photos/ -type f -iname "[D-P]*[0-9]*.[jp][pn]g"
+		ls Photos/"[D-P]*[0-9]*.{[jJ][pP][gG],[pP][nN][gG]}”
+		find Photos/ -type f -iname "[D-P]*[0-9]*.[jpPnN][pnNPgG]"
+		ls Photos/[D-P]*[0-9]*.{[jJ][pP][gG],[pP][nN][gG]}
+		ls [D-P]*[1-9]*.{{J,j}{p,P}{g,G},{p,P}{n,N}{g,G}}
+
+16. Suppose you have a lot of video files with flv, vob and ogg extensions in  the "Videos/" directory. Select the flv and ogg files (file extension can be  given in uppercase, lowercase, or mixed cases) containing at least one digit in 
+the filename and whose last letter is between K to Q. Do the operation in the  Shell with one command! 
+
+16.	ls Videos/*[0-9]*{K..Q}.{[fF][lL][vV],[oO][gG][gG]}
+
+find Videos/ -type f \( -iname "*[0-9]*[K-Q].flv" -o -iname "*[0-9]*[K-Q].ogg" \)
+17. Suppose you have a lot of documents with pdf and txt extensions in the  "Documents/" directory. Select the seven-character (excluding the  extension) .pdf files and the .txt files containing at least 2 digits and whose  first letter is between C to R. Do the operation in the Shell with one  command! 
+17.		find Documents/ -type f ( -name "[C-R]*[0-9]*[0-9]*.txt" -o -name "[C-Rc-r][0-9]*[0-9]*.pdf" )
+18. Describe graphically the following tree structure: /usr/{local/{bin,lib},lib/{gimp/?.?*,emacs/[0-9]*.[1- 9]}}Describe graphically the following tree structure:  /usr/{share/{common-licenses/{,L}GPL- 
+?,doc/HOWTO},{local/{bin,lib},lib/{gimp/?.?* , emacs /  [0-9] *. [1-9] ac}} 
+
+18.	/usr
+├── local
+│   ├── bin
+│   └── lib
+├── lib
+│   ├── gimp
+│   │   ├── ?.?*
+│   └── emacs
+│       └── [0-9]*.[1-9]
+
+/usr
+├── share
+│   ├── common-licenses
+│   │   ├── (empty)
+│   │   └── LGPL-?
+│   └── doc
+│       └── HOWTO
+├── local
+│   ├── bin
+│   └── lib
+└── lib
+    ├── gimp
+    │   ├── ?.?*
+    └── emacs
+        └── [0-9]*.[1-9]ac
+
+	
+19. Suppose you have a filename toto containing another filename. Display the  content of the latter file on the screen. Do the operation in the shell with and  without a pipe. 
+19.        cat $(cat toto)
+       cat toto | xargs cat
+20. Suppose you have a filename toto containing another filename that contains  another filename as well. Display the size of the latter file on the screen. Do  the operation in the shell with and without a pipe. 
+20.		stat -c %s $(cat $(cat toto))
+		cat toto | xargs cat | xargs stat -c %s
+		du -sh $(cat $(cat toto)) (Kilobytes)
+		du -sb $(cat $(cat toto))
+21. Suppose you have a filename foo in the bar/ directory containing the full  path to another filename. Display the size of the latter file on the screen. Do  the operation in the shell with and without a pipe. 
+21.		du -sh $(cat bar/foo)
+/home/alex/exam/filedestination
+
+cat bar/foo | xargs echo | xargs du -sh
+/home/alex/exam/filedestination
+
+22. Create a filename toto if it does not exist. 
+22.		touch toto
+[ -e "toto" ] || touch "toto"
+		[ ! -e "titi" ] && touch "toto"
+23. Create a filename toto if no titi filename exists. Do not display an error  message on the screen.
+23.		[ -e "titi" ] || touch "toto" 2>/dev/null 
+		ls titi 2>/dev/null || touch toto
+		[ ! -e "titi" ] && touch "toto" 2>/dev/null
+24. Create a filename toto if the filename foobar exists, otherwise create a  filename titi. Do not display an error message on the screen. 
+24.		test -e "foobar" && touch "toto" || touch "titi" 2>/dev/null
+25. Run the "ls -l" command on one terminal and display the output on the  other one. 
+25.		mkfifo mypipe (First Terminal)
+ls -l | tee mypipe (First Terminal)
+cat < mypipe (Second Terminal)
+This is the FIFO method.
+
+ls -l > /dev/pts/1
+26. Run a file content viewer command on one terminal and display the output  on the other one. 
+26.		mkfifo mypipe2 (First Terminal)
+cat foo | tee mypipe2 (First Terminal)
+cat < mypipe2 (Second Terminal)
+cat foo > /dev/pts/1
+(Launch PS command to figure out the tty code)
+This is the FIFO method.
+
+27. Copy the toto file content to the titi file. Do not display an error message  on the screen if toto doesn’t exist.
+27.		cat toto >> titi 2>/dev/null
+		cp toto titi 2>/dev/null
+
+28. Append the list of .conf files from the /etc directory to the  list_conf.txt file of your home directory. 
+28.		find /etc -type f -iname "*.conf" >> ~/list_conf.txt
+		find /etc -type f -iname "*.conf" >> $HOME/list_conf.txt
+29. Append the list of .conf files from the /etc directory to the  list_conf.txt file of your home directory and display the list on the  screen as well. Do the operation in the Shell with one command! 
+29.		find /etc -type f -name "*.conf" | tee -a ~/list_conf.txt
+30. Append the list .txt files of your HOME directory to the /tmp/list.txt file and display the list on the screen as well. Do the operation in the Shell  with one command! 
+30.		find ~/ -maxdepth 1 -type f -iname “*.txt” | tee -a /tmp/list.txt
+		find $HOME/ -maxdepth 1 -type f -iname “*.txt” | tee -a /tmp/list.txt
+31. Redirect the list of all files of /etc directory to the list_etc.txt file and  list of .conf files of /etc directory to the list_etc_conf.txt file. Do  the operation in the Shell with one command! 
+31.		ls /etc > list_etc.txt && ls /etc/*.conf > list_etc_conf.txt
+32. Suppose you have 3 files: n1.txt, n2.txt, n3.txt each containing a  random number on one line. Calculate the following arithmetic expressions (n1+(n2*n3))/n2 where n1, n2 and n3 are the file contents. 
+32.		result=$(($(cat n1.txt) + ($(cat n2.txt) * $(cat n3.txt)))) && echo "scale=2; $result / $(cat n2.txt)" | bc
+33. Calculate the π value with the first 100 decimals. 
+33.		echo "scale=100; 4*a(1)" | bc -l
+34. Create the variable named File and assign the value of an arithmetic  expression (for example: 12+3-5). Create a file with the same name as the  value of the arithmetic expression (10, 10=12+3-5). Do the operation in  the Shell with one command! 
+34.		File=$((12+3-5)) && touch $File
+35. Create the variable named File and assign the value of an arithmetic  expression (for example: 12+3-5). Edit a file with the same name as the value  of the arithmetic expression (10, 10=12+3-5). After inserting some  content into the file copy it to the new filename with the same name  expression plus 1 (e.g. 11=10+1). Do the operation in the Shell with one  command! 
+35.		File=$((12+3-5)) && echo "I am awesome" > $File && cp $File $((File+1))
+36. Color the shell invitation. 
+36.		PS1="\[\033[38;5;208m\]\u@\h:\w\$\[\033[0m\] "
+37. Change Shell invitation to: "I'm in… (current directory name),  Now it is… (current time), this is… (command number)  the command" 
+37.		PS1='I'"'"'m in \w, Now it is \A, this is \# the command: '
+		PS1='I'"'"'m in $(pwd), Now it is $(date "+%H:%M"), this is \# the command: '
+38. Create the following type of colored shell invitation. «My processes  number is - N $». 
+38.		PS1="My processes number is - \# \$ "
+39. Which of the following statements best describes what happens in the output  of the “$ cat <ls> cat” command?
+A) Redirect the "ls" file content to the standard output of the "cat"  command 
+B) Concatenates the "<ls>" and the "cat" files on the screen 
+C) Overwrites the "cat" file with the content of the "ls" file 
+D) Incorrect command 
+E) Transfers the "ls" command output to the "cat" file 
+40. Which of the following statements best describes what happens in the output  of the ”$ cat <cat> ls” command? 
+A) Redirects the "ls" file content to the standard input of the "cat"  command  
+B) Concatenates the "<cat>" and the "ls" files on the screen 
+C) Overwrites the "ls" file with the content of the "cat" file 
+D) Incorrect command 
+E) Redirect the "cat" command output to the "ls" file 
+41. Which of the following statements best describes what happens in the output  of the “$ wc file.txt | tee wc” command? 
+A) Prints the newline, word and byte counts for the file.txt and  copies them to the filename ”wc” 
+B) Opens the ”file.txt” and the “wc” files in the text editor named “wc” 
+C) Prints the new line, word and byte counts for the file.txt and opens  the file “tee” with the command “wc” 
+D) Incorrect command 
+E) Prints the newline, word and byte counts for the file.txt and  redirects them to the standard input of the “tee” and the “wc”  commands 
+42. Analyze the following two commands. Are they doing the same thing? 
+A) $ cmd 2>&1 1>file 
+B) $ cmd 1>file 2>&1 
+42. 	No, they are not doing the same thing. The order of the redirections are different.
+43. Open a terminal and run the following commands: 
+A) $ VAR1 = "Hello" 
+B) $ VAR2 = "Kiel” 
+C) $ export VAR1 
+D) $ bash 
+E) $ echo $ VAR1 $ VAR2 
+F) $ exit 
+G) $ echo $ VAR1 $ VAR2
+Will the ”echo” command print the same result in both cases? Explain the result. 
+43.	The echo command will not print the same result in both cases due to the use of the export command and the creation of a new shell with bash. In the first case, the export VAR1 command makes the VAR1 variable available to child processes of the current shell. However, VAR2 is not exported, so it is not available to child processes. When you run bash to start a new shell (a child process), and then echo $VAR1 $VAR2, only VAR1 will be printed because VAR2 is not available in the new shell. After exiting the new shell with exit and running echo $VAR1 $VAR2 again in the original shell, both VAR1 and VAR2 will be printed because both variables are available in the original shell
+ 
+44. Open a terminal and run the following commands: 
+A) $ VAR1 = "Hello" 
+B) $ VAR2 = "Kiel" 
+C) $ export VAR1 
+D) $ echo $VAR1 $VAR2 
+E) $ unset VAR1 
+F) $ echo $VAR1 $VAR2 
+Will the ”echo” command print the same result in both cases? Explain the result. 
+44.	In the first case, VAR1 and VAR2 are both printed as they are both defined and available in the current shell. However, after calling unset VAR1, the VAR1 variable is removed, so when echo $VAR1 $VAR2 is run again, only VAR2 is printed
+45. Open a terminal and run the following commands: 
+A) $ VAR1 = "Hello" 
+B) $ VAR2 = "Kiel" 
+C) $ export VAR1 VAR2 
+D) $ echo $VAR1 $VAR2 
+E) $ export -n VAR1 
+F) $ bash 
+G) $ echo $VAR1 $VAR2 
+H) $ exit 
+I) $echo $VAR1 $VAR2 
+Will the echo command print the same result in all three cases? Explain the result. 
+45.	In the first case, VAR1 and VAR2 are both printed as they are both defined and exported to child processes. However, after calling export -n VAR1, the VAR1 variable is no longer exported to child processes. When a new shell is started with bash and echo $VAR1 $VAR2 is run, only VAR2 is printed because VAR1 is not available in the new shell. After exiting the new shell with exit and running echo $VAR1 $VAR2 again in the original shell, both VAR1 and VAR2 are printed because both variables are available in the original shell
+46. Open a terminal and create the following variables with the given values:  
+1. $ VAR1 = "Hello" 
+2. $ VAR2 = "Kiel" 
+Write answers for each command: 
+A) echo $VAR1$VAR2 
+B) echo $VAR1VAR2 
+C) echo ${VAR1}${VAR2} 
+D) echo $VAR13$VAR24 
+E) echo ${VAR1}${VAR2}4 
+F) echo $VAR1${{VAR2} 
+G) echo $VAR1{VAR2} 
+•	echo $VAR1$VAR2 will print the concatenation of the values of VAR1 and VAR2 because the variables are directly adjacent.
+•	echo $VAR1VAR2 will print nothing or an error message because it tries to print the value of a non-existent variable named VAR1VAR2.
+•	echo ${VAR1}${VAR2} will print the concatenation of the values of VAR1 and VAR2 because the braces {} separate the variable names.
+•	echo $VAR13$VAR24 will print nothing or an error message because it tries to print the values of non-existent variables named VAR13 and VAR24.
+•	echo ${VAR1}${VAR2}4 will print the concatenation of the values of VAR1, `VAR2
+
+
+47. Copy the “ls” command from the /bin directory to $HOME/bin and run it. 
+47.	cp /bin/ls $HOME/bin  # Copy the "ls" binary to $HOME/bin 
+$HOME/bin/ls         # Run the copied "ls" command
+48. exchange the “ps” and the “cat” commands effect (note that you do not have  administrator privileges!)
+48.		nano ~/.bashrc
+
+function ps() {
+    command cat "$@"
+}
+
+function cat() {
+    command ps "$@"
+}
+source ~/.bashrc
+		
+		cd linux-training 
+cp /bin/cp ./ps
+cp /bin/mv ./cat
+PATH=$PWD:$PATH
+
+49. Remove all files and directories except those name start with “r” in the  directory $HOME/tmp 
+49.		rm $HOME/tmp/[^r]*
+
+50. Empty the $HOME/tmp directory. Delete hidden files as well. (Don’t’ try do  delete the . and .. directories). rm -rf /tmp/dir{.[^.],.??*,*} 
+50.		
+1.	rm -rf /tmp/dir{.[^.],.??*,*}: This command uses brace expansion in Bash to generate three patterns: .[^.], .??*, and *. The .[^.] pattern matches hidden files that have one character after the dot, the .??* pattern matches hidden files that have two or more characters after the dot, and the * pattern matches all non-hidden files. The -rf option tells rm to remove files and directories recursively and without asking for confirmation.
+2.	find "$HOME/tmp/" -mindepth 1 ! -name '.' ! -name '..' -delete: This command uses the find utility to search for files in the $HOME/tmp directory. The -mindepth 1 option tells find to ignore the $HOME/tmp directory itself. The ! -name '.' ! -name '..' expression tells find to ignore files named . and ... The -delete option tells find to delete all files that match the search criteria
+3.	find $HOME/tmp -mindepth 1 -maxdepth 1 ! -name '.' ! -name '..' | xargs rm -rf
+4.	sudo rm -rf * .[!.]*
+
+51. Which of the following commands empty the $HOME/tmpfile file  (multiple choice): 
+A) cat /dev/null > $HOME/tmpfile 
+B) cp /dev/null > $HOME/tmpfile 
+C) echo "" > $HOME/tmpfile 
+D) echo > $HOME/tmpfile 
+E) echo -n > $HOME/tmpfile 
+F) true > $HOME/tmpfile 
+G) > $HOME/tmpfile 
+H) truncate -s0 tmpfile
+52. Find all .html files in your HOME directory and redirect the list to the  fichier.html file. 
+52.		find $HOME -maxdepth 1 -type f -name "*.html" > fichier.html
+	ls $HOME/*.html | xargs -I {} basename {} > fichier.html
+53. Find all files whose contents were last modified 2 days ago. 
+53.	find $HOME -type f -mtime 2
+54. Find all files whose contents were last modified 2 days ago and whose size are  between 23 B and 145 B. Display the list. 
+54.		find -type f -mtime -2 -size +23c -size -145c
+55. Find all files whose contents were last modified 1 day ago. 
+55.	find -type f -mtime 1
+56. Find all files whose contents were last modified 45 day ago and more recently  than the file toto. 
+56.		find -type f -mtime -45 -newer toto
+		find $HOME -type f -newer $HOME/toto -mtime -45
+57. Find all files whose contents were last modified 45 minutes ago. 
+57.	find $HOME -type f -mmin -45
+	find ~ /tmp -type f -mmin -45
+58. Find all files whose contents were last accessed 15 days ago. 
+58	find $HOME -type f -atime 15
+•	-mtime +n = finds the files and directories modified more than n days ago
+•	-mtime -n = finds the files and directories modified less than n days ago
+•	-mtime n = finds the files and directories modified exactly n days ago
+59. Find all empty regular type files. 
+59.	find $HOME -type f -empty
+60. Find all .txt files (extension can be in lowercase, uppercase or mixed) 
+60.	find $HOME -type f -iname "*.TXT"
+	ls $HOME/*.{t,T}{x,X}{t,T} 2>/dev/null
+
+61. Find all directory type of files whose names start with the “a" or all not  directory type files whose names end with "k".
+61.	find / -type d -iname  “a*” |  find / -type f -iname  “*k”
+62. Show the difference: find. -size between n, -n, + n. 
+62.		
+1.	find . -size n: This command will find files whose size is exactly n blocks. A block is 512 bytes.
+2.	find . -size -n: This command will find files whose size is less than n blocks.
+3.	find . -size +n: This command will find files whose size is more than n blocks.
+63. Find all files that have exactly the following permissions set: read for the  owner as well as for the group, and read/modify for other users.
+63.		find . -type f -perm 664
+64. Find all files that have at least the following permissions set: read for the  owner as well as for the group, and read/modify for other users. 
+64.		find . -type f -perm -664
+65. Find all files that have the following permissions set: read for the owner as  well as for the group, and read/modify for other users. 
+65.		find /path/to/search -type f -perm /644
+66. Files all directories with sticky bit access: 777 
+66.	find /path/to/search -type d -perm -777
+67. Find all files in your home directory that you do not have access to. 
+67. 	find $HOME -type f ! -readable
+	find $HOME -type f  -not -readable
+68. Find all files that have an active SUID bit. 
+68.	find / -perm /4000
+69. Find all the regular type files in your home directory with 777 permissions  and convert them to 644
+69. 		find $HOME -type f -perm 777 -exec chmod 644 {} \;
+find $HOME -type f -perm 777 | xargs chmod 644
+70. Find all .mp4 or .avi files (extension can be in lowercase, uppercase or  mixed) in your home directory and delete them. 
+70.		find $HOME -type f -iname "*.avi" -o -iname "*.mp4" | xargs rm -fr
+71. Find all .mp4 or .avi files (extension can be in lowercase, uppercase or  mixed) in your home directory larger than 100 MB and delete them. 
+71.	find $HOME -type f \( -iname "*.avi" -o -iname "*.mp4" \) -size +100M -exec rm -f {} +
+	find $HOME -type f \( -iname "*.avi" -o -iname "*.mp4" \) -size +100M | xargs rm -fr
+72. Delete all empty directories in your home directory. 
+72.	find $HOME -type d -empty -exec rmdir {} \;
+	find $HOME -type d -empty | xargs rm -d
+	find $HOME -type d -empty -delete
+73. Find all files that have been read in the last two hours. 
+73.	find / -type f -amin -120 
+	find /path/to/directory -type f -amin -120
+74. Find all configuration files (.conf) in /etc in directories, not in  subdirectories. 
+74. find /etc -maxdepth 1 -type f -name “*.conf”
+75. List running processes owned by the current user. 
+75. ps -u $USER
+ps -u $(whoami)
+ps -p $(pgrep -u $USER)
+ps -u $USER -o pid,ppid,cmd,%cpu,%mem
+
+top -n 10 | grep $USER
+htop --user $USER
+76. Find the syslog process PID. 
+76.	pgrep rsyslog
+	ps aux | grep rsyslog
+77. Compare the number of processes owned by $USER and root. 
+77.	ps -e -o user= | grep $USER | wc -l
+ps -e -o user= | grep root | wc -l
+bc <<< "$(ps -e -o user= | grep root | wc -l) - $(ps -e -o user= | grep $USER | wc -l)"
+echo $(ps -u root|wc -l)-$(ps -u|wc -l) | bc
+78. Sort all processes by CPU usage. 
+78.	ps aux --sort -%cpu
+79. Sort all processes by memory usage. 
+79. 	ps aux –sort -%mem
+80. "ps -aux" is different from "ps aux"? 
+80.	The commands ps -aux and ps aux are effectively the same. The ps command is used to report a snapshot of the current processes. When used with the aux option, it displays detailed information about all processes. The difference in syntax is due to historical reasons: POSIX systems prefer options with a dash (like -aux), whereas BSD systems do not use a dash (like aux)
+81. Display a list of processes in a user-defined format: namely - PID number,  owner name and command name. 
+81.		ps -eo pid,user,comm
+82. Run the command top (in batch mode) and save the first 10 processes in  10p.txt files for further processing.
+82.		top -b -n 1 | head -17 | tail -10 > 10p.txt 
+top -b -n 1 | head -n 17 > 10p.txt (Includes more information and headers)
+
+83. Run the top command (in batch mode) and save the list of the first 5 iterative  processes in the 5p.txt file for further processing. 
+83.		top -b -n 5 | tail -n +8 | head -5 > 5p.txt
+		
+In this command, we use tail -n +8 to skip the first 7 lines of top's output (which contain header information) and then use head -5 to select the first 5 lines of the remaining process list. The output is redirected to the 5p.txt file.
+84. Run the top command (in batch mode) to output only the working processes  and save the list of processes extracted from the first 10 iterations in a  10p.txt file for further processing. 
+84. 		top -b -n 10 | tail +8 | head -10 > 10p.txt
+85. Run the command tee filename in the background. Bring the process to  the foreground, then re-move and run this command in the background  again. 
+85.		
+
+# Start the command in the background
+tee filename &
+# Bring the background process to the foreground
+fg
+# Press Ctrl+Z to suspend the process
+# Use the bg command to resume it in the background
+bg
+86. Show the firefox process PID if it is running and kill it. if not, do not  display error on screen. 
+86.		pgrep firefox && pkill -9 firefox 2>/dev/null
+87. Display the sum of current time seconds, minutes, and hours. 
+87.	echo $(($(date +%H)*3600 + $(date +%M)*60 + $(date +%S)))
+88. Which day of the week was 01/01/2001. 
+88.	date -d "2001-01-01" "+%A"
+89. Display the day of the week, which will be in 2 years, 5 months and 6 days. 
+89.	date -d "$(date -d '+2 years 5 months 6 days' +'%Y-%m-%d')" "+%A"
+90. Display the day of the week which was 2 years, 5 months and 6 days ago. 
+90.	date -d "$(date -d '+2 years 5 months 6 days' +'%Y-%m-%d')" "+%A"
+91. Display the day of the week which will be in 2 years, 5 months and 6 days  ago. 
+
+91.		date -d "$(date -d '-2 years 5 months 6 days' +'%Y-%m-%d')" "+%A"
+92. Display the day of the week, which will be 2 years, 5 months ago and 6 days  after.
+92.		date -d "$(date -d '+2 years 5 months 6 days' +'%Y-%m-%d')" "+%A"
+93. Display the number of seconds that have elapsed since the creation of UNIX.
+93.	echo $(($(date +%s) - $(date -d '1970-01-01 00:00:00' +%s)))
+94. Display 5-10 lines of 2-5 columns of the file toto and redirect the output to the following filename: toto_YYMMDDHHMM (where, YYMMDDHHMM is the current year, month, day, hour and minute)
+94.	cut -f 2-5 toto | sed -n '5,10p' > "toto_$(date +'%y%m%d%H%M')"
+95. Print the 3-5 columns of the toto file, where the columns are separated by  symbol “:”. 
+95.		awk -F: '{print $3, $4, $5}' toto
+		cat toto | cut -d : -f 3-5
+96. Find the duplicate lines in the toto file and display the count. 
+96.	uniq -c -d file.txt
+	sort toto | uniq -d | wc -l
+97. Remove all regular type files in the $HOME/tmp directory those name start  with a, m and r. 
+97.		find $HOME/tmp/ -type f \( -name "a*" -o -name "m*" -o -name "r*" \) -exec rm -f {} \;
+		find $HOME/tmp/ -type f -name “[amf]*” | xargs rm -f 
+98. Count files in your home directory. 
+98	find $HOME -type f | wc -l
+99. Suppose you have 4 files: surname.txt (contains student’s last names per  line), name.txt (contains students' names per line), brdate.txt (contains 
+student’s birthdays per line), place.txt (contains students' birth places per  line). Collect all this information in the students.txt filename containing  each student's last name, first name, date and place of birth per line. 
+99.	paste -d ' ' surname.txt name.txt brdate.txt place.txt > students.txt
+100.Suppose you have the directory $HOME/student containing multiple files.  Each file contains the students' name, surname, date of birth and place per  line. Compile all this information into one file student.txt which will  contain all student's name, surname, date of birth and place per line. 
+
+100.	cat list1.txt list2.txt list3.txt > students.txt
+
+101.Join two file: f1.txt and f2.txt. the first field of f1.txt and the third  field of f2.txt are the same.
+101.	cat f1.txt f2.txt | sort | uniq > merged.txt
+102.Show all .jpg and .png file sizes in your home directory. 	
+102. 	ls $HOME/ *.{jpg,png}
+	du -h $HOME/*.{jpg,png}
+103.Show all .jpg and .png files total size in your home. 
+103.	find $HOME -type f -iname "*.jpg" -o -iname "*.png" -exec du -csh {} + | grep total$
+104.List files in one column. 
+104.	ls -1
+105.Create the archive named archive_YYMMDD.tar containing all files from  your home directory. 
+105.	tar -cvf archive_$(date +%y%m%d).tar $HOME/*
+106.Create the compressed (gzip) archive of your personal directory named  archive_YYMMDD.tgz 
+106.	tar -czvf archive_$(date +%y%m%d).tgz $HOME/*
+107.Create the compressed (bzip2) archive of your personal directory named  archive_YYMMDD.tbz2
+107.	tar -cjvf archive_$(date +%y%m%d).tbz2 $HOME/* 
+108.Create the archive file archive_YYMMDD.tar that contains all the files  from the $HOME/Documents directory. Later, in 5 hours and 15 minutes, add the $HOME/tmp directory to the archive.
+108.	tar -cvf archive_$(date +%y%m%d).tar $HOME/Documents/*
+		echo "tar -rvf archive_$(date +%y%m%d).tar $HOME/tmp/*" | at now + 5 hours 15 minutes 
+		sleep 5h 15m && tar --append -f archive_$(date +\%Y\%m\%d).tar -C $HOME/tmp .
+109.Create the archive archive.tar, which will include all the files from your  home directory. The next day, at 21:00, delete the directory $HOME/tmp from the archive and compress the archive with the Lempel-Ziv algorithm. 
+109.		tar -cvf archive.tar $HOME/*
+echo "tar --delete -f archive.tar $HOME/tmp && gzip archive.tar" | at 21:00 tomorrow
+110.Copy the /etc/passwd file every day at 20:30 into $HOME/tmp/passwd,  except weekends.Count the number of processes run by an XYZ user every 10  minutes every Saturday-night in January (00: 00-06: 00) and collect this data  in the /tmp/jan filename. 
+111.From December 25 to January 2, every 15 minutes, every day, count the total  number of processes running in the system and collect this data in the  /tmp/hollydays file.
+112.The first day of each month at 15:48 make a backup of your home directory in  /backups and name this archive after the following sample:  YYMMDDHHMM.tar (where, YYMMDDHHMM is the current year, month,  day, hour and minute) 
+113.From December 25 to January 2, every 3 hours every day, calculate the size of  the XYZ User Directory and save this data in the /tmp/XZYsize file. 
+114.Create the file toto in $HOME/tmp that you can only read. 
+114.	touch $HOME/tmp/toto
+chmod 400 $HOME/tmp/toto
+115.Create the file in toto in $HOME/tmp that you can read and modify but  cannot delete. 
+115.	mkdir $HOME/tmpdir
+chmod 1777 $HOME/tmpdir
+touch $HOME/tmpdir/toto
+chmod 600 $HOME/tmpdir/toto
+116.Create the file toto in $HOME/tmp that you can read and delete but not  modify. 
+116.	touch $HOME/tmp/toto
+chmod 400 $HOME/tmp/toto
+117.Create the file toto in $HOME/titi in such a way that it is not possible for  you to visualize the titi content, but you can visualize the toto content. 
+177.		mkdir $HOME/titi
+chmod 700 $HOME/titi
+touch $HOME/titi/toto
+chmod 444 $HOME/titi/toto
+118.Allow other users to delete your own files from $HOME/tmp directory. 
+118.		chmod 777 $HOME/tmp
+119.Allow other users to delete their own files from $HOME/tmp directory. 
+119.		chmod 755 $HOME/tmp
+120.Open in the text editor vim a file that was last modified in your home directory. 
+120.	vim $(ls -t ~ | head -1)
+vim $(ls -t ~ | head -n 1)
+121.Count hidden files in your home directory. 
+
+121.	find $HOME/ -maxdepth 1 -type f -iname ".*" | wc -l
+
+122.Count hidden directories in your home directory. 
+122.	find $HOME/ -maxdepth 1 -type d -iname ".?*" | wc -l
+123.Count hidden files and directories in your home directory. 
+123.    ls -d $HOME/.[!.]?* | wc -l 
+ls -l -d $HOME/.[!.]?* | wc -l
+find $HOME/ -maxdepth 1 -iname ".?*" | wc -l
+ls -l -d $HOME/.?* | wc -l
+124.Display all hidden filenames in your home directory and append this list to  the f_ca.txt file. 
+124. find $HOME/ -maxdepth 1 -iname ".*" > f_ca.txt
+	ls -l -d $HOME/.* > f_ca.txt
+125.Open the toto file with vim text editor in read-only mode.
+125.	vim -R toto 
+126.Open the toto with vim text editor by moving the cursor to the tenth row. 
+126.	vim +10 toto
+127.List .conf files from the /etc directory and copy these files to the USB key  (/media/usb). 
+127.	find /etc -maxdepth 1 -iname "*.conf" -exec cp {} /media/usb \;
+
+128.Display your home directory size (in bytes).
+128.	du -sb ~
+		du -sb $HOME
+
+129.Display the disk free information (in bytes).
+129.	df --block-size=1
+
+130.Copy all your script files ($HOME/bin/*) to the USB key (/media/usb)  preserving the following attributes: mode, ownership, timestamps.
+130.	cp -rp $HOME/bin/*.sh /media/usb/
+		cp -rp $HOME/bin/* /media/usb/
