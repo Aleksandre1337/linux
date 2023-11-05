@@ -12,12 +12,12 @@ Archil Elizbarashvili
 	cd /home/$user
 	cd $HOME
 4. Create files with the following names: "name", "name surname", "name \ surname", "'name" surname' "," '".", "' / \" 
-4.	    touch name
-touch "name surname"
-touch "name \ surname"
-touch "'name\" surname'"
-touch "'"
-touch "' / \\"
+4.	touch name
+	touch "name surname"
+	touch "name \ surname"
+	touch "'name\" surname'"
+	touch "'"
+	touch "' / \\"
 
 5. Create all possible two-character filenames with A and B symbols. 
 5.	touch {A,B}{A,B}
