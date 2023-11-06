@@ -158,6 +158,7 @@ cat bar/foo | xargs echo | xargs du -sh
 31.	ls /etc > list_etc.txt && ls /etc/*.conf > list_etc_conf.txt
 32. Suppose you have 3 files: n1.txt, n2.txt, n3.txt each containing a  random number on one line. Calculate the following arithmetic expressions (n1+(n2*n3))/n2 where n1, n2 and n3 are the file contents. 
 32.	result=$(($(cat n1.txt) + ($(cat n2.txt) * $(cat n3.txt)))) && echo "scale=2; $result / $(cat n2.txt)" | bc
+	echo "($(cat n1.txt) + ($(cat n2.txt) * $(cat n3.txt))) / $(cat n2.txt)" | bc
 33. Calculate the π value with the first 100 decimals. 
 33.	echo "scale=100; 4*a(1)" | bc -l
 34. Create the variable named File and assign the value of an arithmetic  expression (for example: 12+3-5). Create a file with the same name as the  value of the arithmetic expression (10, 10=12+3-5). Do the operation in  the Shell with one command! 
